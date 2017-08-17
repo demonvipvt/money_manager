@@ -6,7 +6,8 @@ import { IonicStorageModule } from '@ionic/storage';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { CategoryPage, CategoryDetailPage } from '../pages/category/category';
+import { CategoryPage } from '../pages/category/category';
+import { CategoryDetailPage } from '../pages/category/category-detail';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
