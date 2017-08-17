@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>List</ion-title>
+  </ion-navbar>
+
+  <ion-toolbar no-border-top>
+
+    <ion-segment [(ngModel)]="cat_type">
+      <ion-segment-button value="wallet">
+        Ví
+      </ion-segment-button>
+      <ion-segment-button value="income">
+        Thu
+      </ion-segment-button>
+      <ion-segment-button value="cost">
+        Chi
+      </ion-segment-button>
+    </ion-segment>
+
+    <ion-buttons end>
+      <button ion-button color="success" icon-only (click)="create_category()">
+        <ion-icon name="ios-create-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <div *ngFor="let cat of categories">
+      <button ion-item *ngIf="(cat.type == cat_type)" >
+        <ion-icon [name]="cat.icon" item-left></ion-icon>
+        {{cat.title}}
+        <div class="item-price" item-right>
+          {{cat.value}}
+        </div>
+        <p><small><i>{{cat.note}}</i></small></p>
+      </button>
+    </div>
+  </ion-list>
+</ion-content>
