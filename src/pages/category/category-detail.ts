@@ -1,54 +1,43 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController, Platform, NavParams, ViewController } from 'ionic-angular';
+import { NavController, ModalController, Platform, NavParams, ViewController, AlertController } from 'ionic-angular';
+
+
 import { CategoryService } from '../../services/category-service';
 
 @Component({
-  templateUrl: 'category-detail.html'
+	templateUrl: 'category-detail.html'
 })
 export class CategoryDetailPage {
-  character;
+	category: { id: string, title: string, note: string, icon: string, value: number, type: string };
+	icons: string[];
+	testRadioOpen;
+	testRadioResult;
+	constructor(
+		public platform: Platform,
+		public params: NavParams,
+		public viewCtrl: ViewController,
+		public alerCtrl: AlertController,
+		public CategoryService: CategoryService
+	) {
+		this.category = {
+			id: "",
+			title: "",
+			note: "",
+			icon: "boat",
+			value: 0,
+			type: "wallet"
+		};
+		this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
+			'american-football', 'boat', 'bluetooth', 'build', 'heart', 'ionitron', 'happy', 'people', 'person', 'contact', 'apps', 'lock', 'key', 'unlock', 'map', 'navigate', 'pin', 'locate', 'mic', 'musical', 'volume', 'microphone', 'cafe', 'calculator', 'bus', 'wine', 'camera', 'image', 'star', 'pin', 'arrow', 'arrow', 'arrow', 'arrow', 'cloud', 'sunny', 'umbrella', 'rainy'];
 
-  constructor(
-    public platform: Platform,
-    public params: NavParams,
-    public viewCtrl: ViewController
-  ) {
-    var characters = [
-      {
-        name: 'Gollum',
-        quote: 'Sneaky little hobbitses!',
-        image: 'assets/img/avatar-gollum.jpg',
-        items: [
-          { title: 'Race', note: 'Hobbit' },
-          { title: 'Culture', note: 'River Folk' },
-          { title: 'Alter Ego', note: 'Smeagol' }
-        ]
-      },
-      {
-        name: 'Frodo',
-        quote: 'Go back, Sam! I\'m going to Mordor alone!',
-        image: 'assets/img/avatar-frodo.jpg',
-        items: [
-          { title: 'Race', note: 'Hobbit' },
-          { title: 'Culture', note: 'Shire Folk' },
-          { title: 'Weapon', note: 'Sting' }
-        ]
-      },
-      {
-        name: 'Samwise Gamgee',
-        quote: 'What we need is a few good taters.',
-        image: 'assets/img/avatar-samwise.jpg',
-        items: [
-          { title: 'Race', note: 'Hobbit' },
-          { title: 'Culture', note: 'Shire Folk' },
-          { title: 'Nickname', note: 'Sam' }
-        ]
-      }
-    ];
-    this.character = characters[0];
-  }
+	}
 
-  dismiss() {
-    this.viewCtrl.dismiss();
-  }
+	dismiss() {
+		this.viewCtrl.dismiss({ is_created: false });
+	}
+
+	submit() {
+		this.CategoryService.create(this.category);
+		this.viewCtrl.dismiss({ is_created: true });
+	}
 }

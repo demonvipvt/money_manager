@@ -1,5 +1,6 @@
 ﻿import {Injectable} from "@angular/core";
 import { Storage } from '@ionic/storage';
+import { UUID } from 'angular2-uuid';
 
 @Injectable()
 export class CategoryService {
@@ -7,21 +8,21 @@ export class CategoryService {
     	this.storage.keys().then((keys)=>{
     		if(keys.indexOf('category') == -1){
 			    var newCategory = [{
-			      id 	: 1,
+			      id 	: UUID.UUID(),
 			      title : 'Ví',
 			      note 	: 'Tiền khả dụng',
 			      icon 	: 'boat',
 			      value : 70000,
 			      type 	: 'wallet'
 			    },{
-			      id 	: 2,
+			      id 	: UUID.UUID(),
 			      title : 'Lương',
 			      note 	: 'Thu nhập cố định',
 			      icon 	: 'boat',
 			      value : 0,
 			      type 	: 'income'
 			    },{
-			      id 	: 3,
+			      id 	: UUID.UUID(),
 			      title : 'Ăn uống',
 			      note 	: 'Ăn uống hằng ngày',
 			      icon 	: 'boat',
@@ -34,6 +35,7 @@ export class CategoryService {
     }
 
     create(new_category) {
+    	new_category.id = UUID.UUID();
     	this.storage.get('category').then((categories)=>{
     		categories.push(new_category);
     		this.storage.set('category',categories);

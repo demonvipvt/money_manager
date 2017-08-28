@@ -1,5 +1,4 @@
-
-<ion-header>
+﻿<ion-header>
   <ion-toolbar>
     <ion-buttons start>
       <button ion-button (click)="dismiss()">
@@ -8,26 +7,43 @@
       </button>
     </ion-buttons>
     <ion-title>
-      Tạo mới
+      Tạo mới Danh Mục
     </ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
   <ion-list>
-      <ion-item>
-        <ion-avatar item-start>
-          <img src="{{character.image}}">
-        </ion-avatar>
-        <h2>{{character.name}}</h2>
-        <p>{{character.quote}}</p>
-      </ion-item>
-
-      <ion-item *ngFor="let item of character['items']">
-        {{item.title}}
-        <ion-note item-end>
-          {{item.note}}
-        </ion-note>
-      </ion-item>
+    <ion-item>
+      <ion-label>Tiêu Đề</ion-label>
+      <ion-input [(ngModel)]="category.title" type="text" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Chú Thích</ion-label>
+      <ion-input [(ngModel)]="category.note" type="text" ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Kiểu</ion-label>
+      <ion-select [(ngModel)]="category.type" interface="popover">
+        <ion-option value="wallet">Ví</ion-option>
+        <ion-option value="income">Thu nhập</ion-option>
+        <ion-option value="cost">Chi phí</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <span>Icon</span>
+        <ion-icon [name]="category.icon" item-left color="primary"></ion-icon>
+      </ion-label>
+      <ion-select [(ngModel)]="category.icon" interface="popover">
+        <ion-option *ngFor="let icon of icons" value="{{icon}}">{{icon}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Số Dư</ion-label>
+      <ion-input [(ngModel)]="category.value" type="number" min="0"></ion-input>
+    </ion-item>
   </ion-list>
+  <div padding>
+    <button ion-button color="primary" block (click)="submit()">Tạo mới</button>
+  </div>
 </ion-content>

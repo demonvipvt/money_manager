@@ -12,27 +12,33 @@ export class CategoryPage {
   selectedItem: any;
   icons: string[];
   cat_type: string;
-  categories: Array<{id: number, title: string, note: string, icon: string, value: number, type: string}>;
+  categories: Array<{ id: string, title: string, note: string, icon: string, value: number, type: string }>;
 
   constructor(public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private categoryService: CategoryService) {
     // If we navigated to this page, we will have an item available as a nav param
     this.cat_type = 'wallet';
 
 
-    this.categoryService.getList().then((data)=>{
+    this.categoryService.getList().then((data) => {
       this.categories = data;
     })
 
     // Let's populate this page with some filler content for funzies
     this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
-    'american-football', 'boat', 'bluetooth', 'build'];
+      'american-football', 'boat', 'bluetooth', 'build'];
 
   }
 
   create_category() {
     let modal = this.modalCtrl.create(CategoryDetailPage);
+    modal.onDidDismiss(res => {
+      if (res.is_created) {
+        this.categoryService.getList().then((data) => {
+          this.categories = data;
+        })
+      }
+    });
     modal.present();
-
   }
 
 }
